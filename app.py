@@ -70,7 +70,7 @@ Keep your explanation simple and easy to understand.
         # Show loading spinner while generating
         with st.spinner("Consulting the AI doctor... 🩺"):
             try:
-                model = genai.GenerativeModel("gemini-1.5-flash")
+                model = genai.GenerativeModel("gemini-2.5-flash")
                 response = model.generate_content(prompt)
                 advice = response.text
             except Exception as e:
@@ -90,4 +90,5 @@ st.markdown(
     "<small> | Educational purposes only ⚠️</small>",
     unsafe_allow_html=True
 )
+
 
