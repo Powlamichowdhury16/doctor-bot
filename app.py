@@ -1,5 +1,5 @@
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
@@ -8,8 +8,7 @@ from dotenv import load_dotenv
 # -----------------------------
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
-client = genai.Client(api_key=api_key)
-
+genai.configure(api_key=api_key)
 # -----------------------------
 # Streamlit page configuration
 # -----------------------------
@@ -71,10 +70,8 @@ Keep your explanation simple and easy to understand.
         # Show loading spinner while generating
         with st.spinner("Consulting the AI doctor... 🩺"):
             try:
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=prompt
-                )
+                model = genai.GenerativeModel("gemini-1.5-flash")
+                response = model.generate_content(prompt)
                 advice = response.text
             except Exception as e:
                 advice = f"❌ Error: {e}"
@@ -93,3 +90,4 @@ st.markdown(
     "<small> | Educational purposes only ⚠️</small>",
     unsafe_allow_html=True
 )
+
